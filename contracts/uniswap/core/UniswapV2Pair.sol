@@ -26,7 +26,7 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
     uint public price0CumulativeLast;
     uint public price1CumulativeLast;
     uint public kLast; // reserve0 * reserve1, as of immediately after the most recent liquidity event
-
+    // 防止重入攻击
     uint private unlocked = 1;
     modifier lock() {
         require(unlocked == 1, 'UniswapV2: LOCKED');
@@ -40,7 +40,7 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
         _reserve1 = reserve1;
         _blockTimestampLast = blockTimestampLast;
     }
-
+    // 使用了call进行函数调用
     function _safeTransfer(address token, address to, uint value) private {
         (bool success, bytes memory data) = token.call(abi.encodeWithSelector(SELECTOR, to, value));
         require(success && (data.length == 0 || abi.decode(data, (bool))), 'UniswapV2: TRANSFER_FAILED');
@@ -71,7 +71,11 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
 
     // update reserves and, on the first call per block, price accumulators
     function _update(uint balance0, uint balance1, uint112 _reserve0, uint112 _reserve1) private {
+        // 确认余额0和余额1 小于 uint112的最大值
         require(balance0 <= uint112(-1) && balance1 <= uint112(-1), 'UniswapV2: OVERFLOW');
+        // 区块链时间戳，将时间戳转为uint32
+        // 上面判断了token不能大于112，所以  256 - 112 -112  = 34。还用剩余的34位中的32位存储当区块链前时间
+        // 时间戳转位32位
         uint32 blockTimestamp = uint32(block.timestamp % 2**32);
         uint32 timeElapsed = blockTimestamp - blockTimestampLast; // overflow is desired
         if (timeElapsed > 0 && _reserve0 != 0 && _reserve1 != 0) {
@@ -163,6 +167,7 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
 
         uint balance0;
         uint balance1;
+        // 避免堆栈过深错误
         { // scope for _token{0,1}, avoids stack too deep errors
         address _token0 = token0;
         address _token1 = token1;
