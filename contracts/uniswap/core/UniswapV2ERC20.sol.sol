@@ -5,7 +5,7 @@ import './libraries/SafeMath.sol';
 
 contract UniswapV2ERC20 is IUniswapV2ERC20 {
     using SafeMath for uint;
-
+    // 符号 name都是可以不同的,唯一的只有地址
     string public constant name = 'Uniswap V2';
     string public constant symbol = 'UNI-V2';
     uint8 public constant decimals = 18;
@@ -69,7 +69,7 @@ contract UniswapV2ERC20 is IUniswapV2ERC20 {
         _transfer(msg.sender, to, value);
         return true;
     }
-
+    // 外部函数 主要有第三方和约调用 假定有无线的授权额 通过safeMath重置交易,确保有授权
     function transferFrom(address from, address to, uint value) external returns (bool) {
         if (allowance[from][msg.sender] != uint(-1)) {
             allowance[from][msg.sender] = allowance[from][msg.sender].sub(value);
