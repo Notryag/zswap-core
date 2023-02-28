@@ -8,6 +8,7 @@ specifiers:
   '@nomicfoundation/hardhat-toolbox': ^2.0.0
   '@nomiclabs/hardhat-ethers': ^2.0.0
   '@nomiclabs/hardhat-etherscan': ^3.0.0
+  '@openzeppelin/contracts': ^4.8.1
   '@typechain/ethers-v5': ^10.1.0
   '@typechain/hardhat': ^6.1.2
   '@types/chai': ^4.2.0
@@ -21,6 +22,9 @@ specifiers:
   ts-node: '>=8.0.0'
   typechain: ^8.1.0
   typescript: '>=4.5.0'
+
+dependencies:
+  '@openzeppelin/contracts': registry.npmmirror.com/@openzeppelin/contracts/4.8.1
 
 devDependencies:
   '@ethersproject/abi': registry.npmmirror.com/@ethersproject/abi/5.7.0
@@ -929,6 +933,12 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  registry.npmmirror.com/@openzeppelin/contracts/4.8.1:
+    resolution: {integrity: sha512-xQ6eUZl+RDyb/FiZe1h+U7qr/f4p/SrTSQcTPH2bjur3C5DbuW/zFgCU/b1P/xcIaEqJep+9ju4xDRi3rmChdQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@openzeppelin/contracts/-/contracts-4.8.1.tgz}
+    name: '@openzeppelin/contracts'
+    version: 4.8.1
+    dev: false
 
   registry.npmmirror.com/@scure/base/1.1.1:
     resolution: {integrity: sha512-ZxOhsSyxYwLJj3pLZCefNitxsj093tb2vq90mp2txoYeBqbcjDjqFhyM8eUjq/uFm6zJ+mUuqxlS2FkuSY1MTA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@scure/base/-/base-1.1.1.tgz}
