@@ -12,6 +12,8 @@ contract UniswapV2Factory is IUniswapV2Factory {
     address[] public allPairs;
 
     event PairCreated(address indexed token0, address indexed token1, address pair, uint);
+   // 读取initCode UniswapV2Router中使用
+    bytes32 public constant INIT_CODE_PAIR_HASH = keccak256(abi.encodePacked(type(UniswapV2Pair).creationCode));
 
     constructor(address _feeToSetter) public {
         feeToSetter = _feeToSetter;

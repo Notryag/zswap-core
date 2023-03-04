@@ -20,7 +20,8 @@ library UniswapV2Library {
                 hex'ff',
                 factory,
                 keccak256(abi.encodePacked(token0, token1)),
-                hex'96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f' // init code hash
+                // uniswapV2Factory 的字节码 ( INIT_CODE_PAIR_HASH )
+                hex'eb5878f5d5086cb70cd66f2c8dd55fc28e7180669b6b1543df0d20d787de01ea' // init code hash
             ))));
     }
 
